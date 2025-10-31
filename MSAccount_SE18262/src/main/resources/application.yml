@@ -1,6 +1,18 @@
 server:
-  context-path: /account-service
   port: 8081
+  servlet:
+    context-path: /account-service
+
+
+springdoc:
+  api-docs:
+    enabled: true
+    path: /v3/api-docs
+  swagger-ui:
+    enabled: true
+    persist-authorization: true
+    use-root-path: true
+
 spring:
   application:
     name: account-service
@@ -11,11 +23,8 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-  springdoc:
-  api-docs:
-    enabled: true
-    path: /v3/api-docs
-  swagger-ui:
-    path: /swagger-ui.html
+
+
 
 jwt-secret: 1TjXchw5FloESb63Kc+DFhTARvpWL4jUGCwfGWxuG5SIf/1y/LgJxHnMqaF6A/ij
+

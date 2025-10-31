@@ -27,13 +27,13 @@ public class SecurityConfig {
             "/swagger-ui/**",
             "/v3/api-docs/**",
             "/swagger.json/**",
-            "/account-service/v3/api-docs/**",
+            "/*-service/v3/api-docs/**",
             "/brand/brands",
             "/blindbox/blindboxes/**",
     };
 
     private final String[] PUBLIC_POST_ENDPOINTS = {
-            "/account/login",
+            "/account-service/login",
     };
 
     @Bean

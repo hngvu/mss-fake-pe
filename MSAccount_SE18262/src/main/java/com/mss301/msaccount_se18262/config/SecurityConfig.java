@@ -1,18 +1,23 @@
 package com.mss301.msaccount_se18262.config;
 
 import com.nimbusds.jose.jwk.source.ImmutableSecret;
-import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.info.Info;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 import javax.crypto.spec.SecretKeySpec;
+import java.util.List;
 
 @Configuration
 public class SecurityConfig {
+
+
+
     @Value("${jwt-secret}")
     String jwtSecret;
 
@@ -24,11 +29,17 @@ public class SecurityConfig {
     }
 
     @Bean
-    public OpenAPI baseOpenAPI() {
-        return new OpenAPI()
-                .info(new Info()
-                        .title("Account Service API")
-                        .version("1.0")
-                        .description("JWT Token Issuer"));
+    public CorsFilter corsFilter(){
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.setAllowedOrigins(List.of("*"));
+        corsConfiguration.setAllowedHeaders(List.of("*"));
+        corsConfiguration.setAllowedMethods(List.of("*"));
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", corsConfiguration);
+
+
+        return new CorsFilter(source);
     }
+
 }
