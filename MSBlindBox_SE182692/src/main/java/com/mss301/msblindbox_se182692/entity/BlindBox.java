@@ -12,6 +12,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "MSS301Summer25DBBlindBox")
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)

@@ -18,9 +18,7 @@ import java.time.temporal.ChronoUnit;
 @RequiredArgsConstructor
 public class AccountServiceImpl implements AccountService {
     private final AccountRepo accountRepo;
-    @Value("${jwt-secret}")
-    String jwtSecret;
-    private final JwtEncoder jwtEncoder = new NimbusJwtEncoder(new ImmutableSecret<>(new SecretKeySpec(jwtSecret.getBytes(), "HS512")));
+    private final JwtEncoder jwtEncoder;
 
     @Override
     public String login(LoginRequest loginRequest) {
