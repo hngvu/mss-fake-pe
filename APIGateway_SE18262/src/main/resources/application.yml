@@ -1,5 +1,5 @@
 server:
-  port: ${PORT}
+  port: 8080
 
 springdoc:
   api-docs:
@@ -17,7 +17,6 @@ springdoc:
         url: ${BRAND_SERVICE_CONTEXT_PATH}/v3/api-docs
       - name: Blindbox Service
         url: ${BLINDBOX_SERVICE_CONTEXT_PATH}/v3/api-docs
-
 
 spring:
   application:

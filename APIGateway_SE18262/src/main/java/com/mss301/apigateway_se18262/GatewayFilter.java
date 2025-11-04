@@ -12,11 +12,10 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.util.*;
 
-@Component
 public class GatewayFilter implements Filter {
 
     private final AntPathMatcher pathMatcher = new AntPathMatcher();
-    @Value("${jwt.secret}") // Sửa thành ${jwt.secret}
+    @Value("${jwt.secret}")
     private String jwtSecret;
 
     // PUBLIC APIs: METHOD + PATTERN

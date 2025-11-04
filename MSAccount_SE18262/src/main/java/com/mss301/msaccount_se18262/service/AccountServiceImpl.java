@@ -23,17 +23,17 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public String login(LoginRequest loginRequest) {
             var account = accountRepo.findByEmail(loginRequest.email())
-                    .orElseThrow(() -> new BadCredentialsException("Invalid email or password"));
+                    .orElseThrow(() -> new BadCredentialsException("Incorrect email or password"));
 
             if (account.getPassword().equals(loginRequest.password()) && account.isActive() ) {
                 return jwtEncoder.encode(
                         JwtEncoderParameters.from(
-                                JwsHeader.with(() -> JwsAlgorithms.HS512)
+                                JwsHeader.with(() -> JwsAlgorithms.HS256)
                                         .type("JWT")
                                         .build(),
                                 JwtClaimsSet.builder()
                                         .subject(Integer.toString(account.getId()))
-                                        .claim("scope", account.getRoleName())
+                                        .claim("role", account.getRole())
                                         .claim("isActive", true)
                                         .issuedAt(Instant.now())
                                         .expiresAt(Instant.now().plus(1, ChronoUnit.DAYS))
@@ -43,7 +43,7 @@ public class AccountServiceImpl implements AccountService {
 
             }
 
-            throw new BadCredentialsException("Invalid email or password");
+            throw new BadCredentialsException("Incorrect email or password");
     }
 
 
