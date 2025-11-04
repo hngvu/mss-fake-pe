@@ -15,4 +15,9 @@ public class BrandServiceImpl implements BrandService {
     public List<Brand> getAllBrands() {
         return brandRepo.findAll();
     }
+
+    @Override
+    public Brand getBrandById(int id) {
+        return  brandRepo.findById(id).orElseThrow();
+    }
 }

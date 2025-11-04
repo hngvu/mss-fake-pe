@@ -1,5 +1,4 @@
 server:
-  context-path: /brand-service
   port: 8082
 spring:
   application:
@@ -11,9 +10,11 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-  springdoc:
+
+springdoc:
   api-docs:
     enabled: true
     path: /v3/api-docs
   swagger-ui:
     path: /swagger-ui.html
+    enabled: true

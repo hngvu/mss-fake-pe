@@ -1,20 +1,22 @@
 server:
-  port: 8080
+  port: ${PORT}
 
 springdoc:
   api-docs:
     enabled: true
     path: /v3/api-docs
+
   swagger-ui:
     enabled: true
-    use-root-path: true
     urls:
+      - name: Gateway API
+        url: /v3/api-docs
       - name: Account Service
-        url: http://localhost:8081/account-service/v3/api-docs
-#      - name: Brand Service
-#        url: /brand-service/v3/api-docs
-#      - name: Blindbox Service
-#        url: /blindbox-service/v3/api-docs
+        url: ${ACCOUNT_SERVICE_CONTEXT_PATH}/v3/api-docs
+      - name: Brand Service
+        url: ${BRAND_SERVICE_CONTEXT_PATH}/v3/api-docs
+      - name: Blindbox Service
+        url: ${BLINDBOX_SERVICE_CONTEXT_PATH}/v3/api-docs
 
 
 spring:
@@ -26,16 +28,22 @@ spring:
         webmvc:
           routes:
             - id: account-service-route
-              uri: http://localhost:8081
+              uri: ${ACCOUNT_SERVICE_URL}
               predicates:
-                - Path=/account-service/**
+                - Path=${ACCOUNT_SERVICE_CONTEXT_PATH}/**
+              filters:
+                - StripPrefix=1
             - id: brand-service-route
-              uri: http://localhost:8082
+              uri: ${BRAND_SERVICE_URL}/**
               predicates:
-                - Path=/brand-service/**
+                - Path=${BRAND_SERVICE_CONTEXT_PATH}/**
+              filters:
+                - StripPrefix=1
             - id: blindbox-service-route
-              uri: http://localhost:8083
+              uri: ${BLINDBOX_SERVICE_URL}
               predicates:
-                - Path=/blindbox-service/**
-
-jwt-secret: 1TjXchw5FloESb63Kc+DFhTARvpWL4jUGCwfGWxuG5SIf/1y/LgJxHnMqaF6A/ij
+                - Path=${BLINDBOX_SERVICE_CONTEXT_PATH}/**
+              filters:
+                - StripPrefix=1
+jwt:
+  secret: ${JWT_SECRET}

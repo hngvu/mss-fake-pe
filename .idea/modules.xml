@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/MSBlindBox_SE182692/MSBlindBox_SE182692.iml" filepath="$PROJECT_DIR$/MSBlindBox_SE182692/MSBlindBox_SE182692.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/mss301-fake-pe.iml" filepath="$PROJECT_DIR$/.idea/mss301-fake-pe.iml" />
     </modules>
   </component>
