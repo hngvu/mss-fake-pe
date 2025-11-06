@@ -1,5 +1,6 @@
 package com.mss301.msblindbox_se182692.controller;
 
+import com.mss301.msblindbox_se182692.dto.BlindBoxRequest;
 import com.mss301.msblindbox_se182692.entity.BlindBox;
 import com.mss301.msblindbox_se182692.entity.Category;
 import com.mss301.msblindbox_se182692.service.BlindBoxService;
@@ -30,14 +31,15 @@ public class BlindBoxController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> create(@Valid @RequestBody BlindBox blindBox) {
+    public ResponseEntity<Void> create(@Valid @RequestBody BlindBoxRequest blindBox) {
         blindBoxService.addBlindBox(blindBox);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity<BlindBox> update(@Valid @RequestBody BlindBox blindBox) {
-        return ResponseEntity.ok(blindBoxService.updateBlindBox(blindBox));
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> update(@PathVariable int id, @Valid @RequestBody BlindBoxRequest blindBox) {
+        blindBoxService.updateBlindBox(id, blindBox);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")

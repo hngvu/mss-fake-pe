@@ -17,6 +17,7 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
@@ -33,6 +34,7 @@ public class ApiGatewaySe18262Application {
             "/swagger-ui/**",
             "/v3/api-docs/**",
             "/*/v3/api-docs/**",
+            "/blindbox/blindboxes/**",
     };
 
     private final String[] PUBLIC_POST_ENDPOINTS = {
@@ -42,10 +44,11 @@ public class ApiGatewaySe18262Application {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeHttpRequests(requests ->
-                requests.requestMatchers(HttpMethod.GET, PUBLIC_GET_ENDPOINTS).permitAll()
+        httpSecurity
+                .authorizeHttpRequests(requests ->
+                requests
+                        .requestMatchers(HttpMethod.GET, PUBLIC_GET_ENDPOINTS).permitAll()
                         .requestMatchers(HttpMethod.POST, PUBLIC_POST_ENDPOINTS).permitAll()
-                        .requestMatchers(HttpMethod.GET, "/blindbox/blindboxes/**").permitAll()
                         .requestMatchers("/blindbox/blindboxes/**").hasRole("1")
                         .anyRequest().authenticated()
         );
@@ -67,11 +70,10 @@ public class ApiGatewaySe18262Application {
                 .jwtAuthenticationConverter(jwtAuthenticationConverter())));
 
         httpSecurity.csrf(AbstractHttpConfigurer::disable);
-
         return httpSecurity.build();
     }
 
-    @Value("${jwt.secret}")
+    @Value("${app.jwt.secret}")
     private String jwtSecret;
 
     @Bean
@@ -92,14 +94,18 @@ public class ApiGatewaySe18262Application {
         return converter;
     }
 
+    @Value("${app.allowed-origins}")
+    String allowedOrigins;
+
     @Bean
     public FilterRegistrationBean<CorsFilter> corsFilterRegistration() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(false);
-        config.addAllowedOrigin("*");
+        config.setAllowCredentials(true);
+        config.addAllowedOrigin(allowedOrigins);
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
+        config.addExposedHeader("*");
         source.registerCorsConfiguration("/**", config);
         FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<>(new CorsFilter(source));
         bean.setOrder(Ordered.HIGHEST_PRECEDENCE);

@@ -20,6 +20,8 @@ spring:
       ddl-auto: update
 
 
-
-jwt-secret: 383b6a6d0dfa7bede94888f4f75ad3e6600899be437b6fcfcf9cec8ed1b12b42
+app:
+  allowed-origins: ${ALLOWED_ORIGINS:http://localhost:8080}
+  jwt:
+    secret: ${JWT_SECRET}
 

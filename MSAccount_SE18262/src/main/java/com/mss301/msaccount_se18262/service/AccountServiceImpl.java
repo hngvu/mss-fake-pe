@@ -33,7 +33,7 @@ public class AccountServiceImpl implements AccountService {
                                         .build(),
                                 JwtClaimsSet.builder()
                                         .subject(Integer.toString(account.getId()))
-                                        .claim("role", account.getRole())
+                                        .claim("role", String.valueOf(account.getRole()))
                                         .claim("isActive", true)
                                         .issuedAt(Instant.now())
                                         .expiresAt(Instant.now().plus(1, ChronoUnit.DAYS))

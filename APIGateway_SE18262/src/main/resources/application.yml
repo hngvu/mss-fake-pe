@@ -9,8 +9,6 @@ springdoc:
   swagger-ui:
     enabled: true
     urls:
-      - name: Gateway API
-        url: /v3/api-docs
       - name: Account Service
         url: ${ACCOUNT_SERVICE_CONTEXT_PATH}/v3/api-docs
       - name: Brand Service
@@ -19,6 +17,8 @@ springdoc:
         url: ${BLINDBOX_SERVICE_CONTEXT_PATH}/v3/api-docs
 
 spring:
+  config:
+    import: optional:file:.env[.yml]
   application:
     name: gateway
   cloud:
@@ -44,5 +44,9 @@ spring:
                 - Path=${BLINDBOX_SERVICE_CONTEXT_PATH}/**
               filters:
                 - StripPrefix=1
-jwt:
-  secret: ${JWT_SECRET}
+
+app:
+  allowed-origins: ${ALLOWED_ORIGINS:http://localhost:5173}
+  jwt:
+    secret: ${JWT_SECRET}
+

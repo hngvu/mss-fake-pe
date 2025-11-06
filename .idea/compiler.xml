@@ -9,7 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="APIGateway_SE18262" />
       </profile>
-      <profile name="Annotation profile for MSBrand_SE18262" enabled="true">
+      <profile name="Annotation profile for MSBlindBox_SE182692" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />

@@ -28,8 +28,6 @@ public class BlindBox {
     String rarity;
     @NotNull(message = "price required")
     double price;
-    @NotNull(message = "release date required")
-    @JsonFormat(pattern = "dd-MM-yyyy")
     LocalDate releaseDate;
     @Min(value = 1, message = "stock must be greater or equal 1")
     @Max(value = 100, message = "stock must be lower or equal 100")
